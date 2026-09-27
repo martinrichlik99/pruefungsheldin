@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<defs>
+<linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f06a7e"/><stop offset="0.55" stop-color="#d13c5f"/><stop offset="1" stop-color="#9c1c42"/></linearGradient>
+<radialGradient id="glanz" cx="0.3" cy="0.2" r="0.7"><stop offset="0" stop-color="#fff" stop-opacity="0.35"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+<linearGradient id="s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#ffe7d6"/></linearGradient>
+</defs>
+<rect width="512" height="512" rx="116" fill="url(#g)"/>
+<rect width="512" height="512" rx="116" fill="url(#glanz)"/>
+<polygon points="226.6,115.6 283.8,218.4 401.0,208.4 320.9,294.5 366.7,402.8 260.0,353.3 171.1,430.3 185.3,313.6 84.6,252.8 200.0,230.2" fill="#7d1535" opacity="0.35" transform="translate(8,14)"/>
+<polygon points="226.6,109.6 283.8,212.4 401.0,202.4 320.9,288.5 366.7,396.8 260.0,347.3 171.1,424.3 185.3,307.6 84.6,246.8 200.0,224.2" fill="url(#s)" stroke="#fff" stroke-width="14" stroke-linejoin="round"/>
+<path d="M404,72 Q412.28,109.72 450,118 Q412.28,126.28 404,164 Q395.72,126.28 358,118 Q395.72,109.72 404,72Z" fill="#fcd34d"/>
+<path d="M118,370 Q123.4,394.6 148,400 Q123.4,405.4 118,430 Q112.6,405.4 88,400 Q112.6,394.6 118,370Z" fill="#6ee7b7"/>
+<path d="M430,216 Q433.6,232.4 450,236 Q433.6,239.6 430,256 Q426.4,239.6 410,236 Q426.4,232.4 430,216Z" fill="#fff" opacity="0.85"/>
+</svg>

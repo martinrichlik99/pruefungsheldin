@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Prüfungsheldin</title>
 <meta name="theme-color" content="#fff8f5">
+<link rel="icon" type="image/svg+xml" href="icons/icon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="icons/icon-180.png">
+<meta name="apple-mobile-web-app-title" content="Prüfungsheldin">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -25,7 +29,7 @@
   /* Kopf */
   .kopf { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--linie); margin-bottom: 16px; flex-wrap: wrap; }
   .marke { display: flex; align-items: center; gap: 10px; font-size: 21px; font-weight: 800; color: var(--himbeer-dunkel); letter-spacing: -0.02em; }
-  .marke i { width: 32px; height: 32px; border-radius: 50%; background: var(--himbeer); color: #fff; display: grid; place-items: center; font-style: normal; font-size: 18px; }
+  .marke img { border-radius: 9px; display: block; }
   .kopf-pillen { display: flex; gap: 10px; flex-wrap: wrap; }
   .pille { display: flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 999px; font-size: 14px; font-weight: 700; border: 1px solid var(--linie); background: var(--karte); }
   .pille-gold { background: var(--gold-hell); color: var(--gold-text); border-color: #f7dfa0; }
@@ -147,7 +151,7 @@
 <body>
 <div class="seite">
   <header class="kopf">
-    <div class="marke"><i aria-hidden="true">★</i>Prüfungsheldin</div>
+    <div class="marke"><img src="icons/icon-192.png" alt="" width="34" height="34">Prüfungsheldin</div>
     <div class="kopf-pillen">
       <span class="pille pille-gold" id="serie">🔥 0 Tage</span>
       <span class="pille"><span id="tagesziel">0/30 heute</span><span class="mini-leiste" aria-hidden="true"><b id="tagesziel-leiste" style="width:0%"></b></span></span>
