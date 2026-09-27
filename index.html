@@ -146,6 +146,39 @@
     .frage-karte { padding: 24px 20px; border-radius: 24px; }
     .frage { font-size: 20px; }
   }
+  /* Handy */
+  @media (max-width: 600px) {
+    .seite { padding: 0 14px 32px; }
+    .kopf { gap: 6px; margin-bottom: 12px; }
+    .marke { font-size: 16px; gap: 7px; }
+    .marke img { width: 28px; height: 28px; }
+    .kopf-pillen { flex-wrap: nowrap; gap: 5px; }
+    .pille { padding: 4px 8px; font-size: 12.5px; gap: 4px; white-space: nowrap; }
+    .mini-leiste { display: none; }
+    .held { padding: 16px; border-radius: 22px; gap: 14px; }
+    .held-zeile { font-size: 13px; gap: 8px; }
+    .held h1 { white-space: normal; font-size: 22px; }
+    .held .knopf-reihe { flex-direction: column; }
+    .held .knopf { width: 100%; justify-content: center; white-space: normal; }
+    .ring-karte { flex-wrap: wrap; padding: 14px 16px; }
+    .zahlen { width: 100%; justify-content: space-around; border-left: none; border-top: 1px solid var(--linie); padding: 12px 0 0; }
+    .kapitel h3 { font-size: 16px; }
+    .kapitel .unter { font-size: 13.5px; }
+    .kapitel-fuss, .fuss, .fuss button { font-size: 14px; }
+    .quiz-kopf { gap: 10px; }
+    .quiz-titel { font-size: 15px; }
+    .quiz-leiste { margin-bottom: 16px; }
+    .frage-karte { padding: 20px 16px; }
+    .option { padding: 14px 16px; min-height: 52px; }
+    .rueckmeldung { padding: 16px; }
+    .erklaerung { font-size: 16px; }
+    .unten { flex-direction: column-reverse; align-items: stretch; }
+    #antwortbereich .knopf-reihe { flex-wrap: nowrap; }
+    #antwortbereich .knopf-reihe .knopf { flex: 1; justify-content: center; padding: 14px 10px; }
+    .unten .knopf, .ende-karte .knopf { justify-content: center; }
+    .ende-karte { margin-top: 16px; padding: 32px 20px; }
+    .ende-karte .knopf-reihe { flex-direction: column; }
+  }
 </style>
 </head>
 <body>
