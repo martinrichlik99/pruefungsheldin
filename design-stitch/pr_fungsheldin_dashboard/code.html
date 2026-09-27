@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-background" lang="de"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Prüfungsheldin — Dashboard</title>
+<!-- Google Fonts: Plus Jakarta Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS with Forms and Container Queries Plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-primary-container": "#fffbff",
+            "inverse-primary": "#ffb2bc",
+            "surface-container-lowest": "#ffffff",
+            "inverse-surface": "#382f29",
+            "on-tertiary": "#ffffff",
+            "on-error": "#ffffff",
+            "tertiary-fixed": "#ffddb8",
+            "tertiary-fixed-dim": "#ffb95f",
+            "tertiary": "#825100",
+            "on-secondary": "#ffffff",
+            "on-secondary-fixed-variant": "#005236",
+            "surface-container-low": "#fff1ea",
+            "on-primary": "#ffffff",
+            "outline": "#8c7073",
+            "surface-container": "#fbebe2",
+            "secondary-fixed": "#6ffbbe",
+            "tertiary-container": "#a36700",
+            "surface-variant": "#efdfd7",
+            "error-container": "#ffdad6",
+            "surface-container-high": "#f5e5dc",
+            "on-primary-fixed-variant": "#910134",
+            "surface": "#fff8f5",
+            "on-secondary-fixed": "#002113",
+            "on-error-container": "#93000a",
+            "on-primary-fixed": "#400012",
+            "error": "#ba1a1a",
+            "background": "#fff8f5",
+            "surface-tint": "#b2244a",
+            "inverse-on-surface": "#feeee5",
+            "on-tertiary-container": "#fffbff",
+            "on-tertiary-fixed-variant": "#653e00",
+            "on-background": "#221a15",
+            "on-surface-variant": "#584143",
+            "secondary-container": "#6cf8bb",
+            "surface-bright": "#fff8f5",
+            "primary-container": "#d13c5f",
+            "on-secondary-container": "#00714d",
+            "secondary": "#006c49",
+            "primary-fixed-dim": "#ffb2bc",
+            "surface-container-highest": "#efdfd7",
+            "surface-dim": "#e7d7cf",
+            "on-tertiary-fixed": "#2a1700",
+            "secondary-fixed-dim": "#4edea3",
+            "primary": "#af2148",
+            "primary-fixed": "#ffd9dd",
+            "outline-variant": "#e0bec1",
+            "on-surface": "#221a15"
+          },
+          "borderRadius": {
+            "DEFAULT": "1rem",
+            "lg": "2rem",
+            "xl": "3rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "margin-mobile": "1rem",
+            "space-xl": "2.5rem",
+            "space-md": "1rem",
+            "gutter": "1.5rem",
+            "space-xs": "0.25rem",
+            "gutter-mobile": "1rem",
+            "space-sm": "0.5rem",
+            "margin": "2rem",
+            "space-lg": "1.5rem"
+          },
+          "fontFamily": {
+            "body-md": ["Plus Jakarta Sans"],
+            "headline-xl": ["Plus Jakarta Sans"],
+            "label-lg": ["Plus Jakarta Sans"],
+            "headline-xl-mobile": ["Plus Jakarta Sans"],
+            "display-lg": ["Plus Jakarta Sans"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "label-md": ["Plus Jakarta Sans"],
+            "label-sm": ["Plus Jakarta Sans"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "body-sm": ["Plus Jakarta Sans"],
+            "headline-md": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "body-md": ["1rem", { "lineHeight": "1.5rem", "fontWeight": "400" }],
+            "headline-xl": ["2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.025em", "fontWeight": "700" }],
+            "label-lg": ["0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "0.02em", "fontWeight": "700" }],
+            "headline-xl-mobile": ["1.75rem", { "lineHeight": "2.25rem", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "display-lg": ["3rem", { "lineHeight": "3.5rem", "letterSpacing": "-0.03em", "fontWeight": "800" }],
+            "body-lg": ["1.125rem", { "lineHeight": "1.75rem", "fontWeight": "400" }],
+            "label-md": ["0.75rem", { "lineHeight": "1rem", "letterSpacing": "0.04em", "fontWeight": "700" }],
+            "label-sm": ["0.6875rem", { "lineHeight": "0.875rem", "letterSpacing": "0.05em", "fontWeight": "600" }],
+            "headline-lg": ["1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "body-sm": ["0.875rem", { "lineHeight": "1.25rem", "fontWeight": "500" }],
+            "headline-md": ["1.25rem", { "lineHeight": "1.75rem", "letterSpacing": "-0.015em", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .material-symbols-outlined[data-weight="fill"] {
+      font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-background text-on-surface font-body-md text-body-md antialiased flex flex-col selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TopNavBar (Shared Component from JSON Blueprint) -->
+<header class="sticky top-0 z-40 bg-surface dark:bg-inverse-surface shadow-sm border-b border-outline-variant/30 dark:border-outline-variant/10">
+<div class="flex justify-between items-center w-full px-6 lg:px-8 py-3.5 max-w-7xl mx-auto">
+<!-- Left: Brand Logo & Wordmark -->
+<div class="flex items-center gap-6">
+<a class="text-headline-md font-headline-md font-extrabold text-primary dark:text-inverse-primary flex items-center gap-2 transition-transform active:scale-[0.98]" href="#">
+<span class="w-9 h-9 rounded-full bg-primary-container text-on-primary flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[20px]" data-weight="fill">hotel_class</span>
+</span>
+<span>Prüfungsheldin</span>
+</a>
+<!-- Desktop Navigation Links (Intent locked to 'Kapitel' active) -->
+<nav aria-label="Hauptnavigation" class="hidden md:flex items-center gap-6 ml-4">
+<a class="text-on-surface-variant dark:text-inverse-on-surface hover:text-primary transition-colors pb-1 text-label-lg font-label-lg" href="#">
+            Lernplan
+          </a>
+<a class="text-primary dark:text-inverse-primary font-bold border-b-2 border-primary pb-1 text-label-lg font-label-lg" href="#">
+            Kapitel
+          </a>
+<a class="text-on-surface-variant dark:text-inverse-on-surface hover:text-primary transition-colors pb-1 text-label-lg font-label-lg" href="#">
+            Statistiken
+          </a>
+<a class="text-on-surface-variant dark:text-inverse-on-surface hover:text-primary transition-colors pb-1 text-label-lg font-label-lg" href="#">
+            Simulation
+          </a>
+</nav>
+</div>
+<!-- Right: Status Indicators & Actions -->
+<div class="flex items-center gap-3">
+<!-- Streak Badge -->
+<div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-md text-label-md shadow-sm border border-tertiary-fixed-dim/40">
+<span class="material-symbols-outlined text-[18px] text-tertiary-container" data-weight="fill">local_fire_department</span>
+<span>4 Tage</span>
+</div>
+<!-- Daily Target Badge -->
+<div class="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-container text-on-surface-variant font-label-md text-label-md border border-outline-variant/40">
+<span class="material-symbols-outlined text-[17px] text-primary" data-weight="fill">adjust</span>
+<span>18/30 heute</span>
+<div class="w-12 h-1.5 bg-outline-variant/30 rounded-full overflow-hidden">
+<div class="w-[60%] h-full bg-primary rounded-full"></div>
+</div>
+</div>
+<!-- Trailing Action: Notification Bell -->
+<button aria-label="Benachrichtigungen" class="w-9 h-9 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-all duration-200" type="button">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<!-- Trailing Action: User Avatar Profile -->
+<div class="flex items-center pl-1">
+<img alt="Ergotherapie Studentin Profil" class="w-9 h-9 rounded-full object-cover ring-2 ring-primary/20" data-alt="Close up warm profile portrait of a confident Ergotherapie healthcare student in a natural lit room wearing a linen scrub top, radiating calm focus and empathy with soft rose and neutral background tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5mWbPySVnVUv73AO5FSRIP1Asnq04kHqlB-vVc4MxdfpD_jiMQb4B6e1ZfdRPSWY7YqQUjzLqM5EpKPmGNxHhm5y1NdJ2hxXHKFf7JKeqoFQCyyyYVMK8FUYd0iXCPoKVuZF0aTJQY7WrPF7xZWUS0IZvgw3C8fGy0sxGFMrrgesQ_7l-11IrCiBWM4Qz1mDxm-kWYHKCCyKPX3x_9YTzbg2OQ9ZMNU0j9q9YS0hgVxk2m0JKrBOHPdM8wIy6fqN3PVWHqNTW83Gz"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Canvas Container -->
+<main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+<!-- Hero Card (Tactile Warm Mastery Container) -->
+<section class="relative overflow-hidden rounded-xl bg-surface-container-lowest border border-outline-variant/40 p-6 sm:p-8 lg:p-10 shadow-sm">
+<!-- Ambient Decorative Backdrop Glows -->
+<div class="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-primary-fixed/20 blur-3xl pointer-events-none"></div>
+<div class="absolute right-1/4 -bottom-24 w-72 h-72 rounded-full bg-surface-container/60 blur-2xl pointer-events-none"></div>
+<div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+<!-- Left & Center Content (Cols 1-8) -->
+<div class="lg:col-span-8 space-y-4">
+<!-- Badges Bar -->
+<div class="flex flex-wrap items-center gap-2.5">
+<span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-label-lg text-label-lg font-bold shadow-sm">
+<span class="material-symbols-outlined text-[16px]" data-weight="fill">event_upcoming</span>
+              Noch 15 Tage
+            </span>
+<span class="text-on-surface-variant font-body-sm text-body-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-primary">school</span>
+              Anatomie und Physiologie I · Prüfung am 12. Oktober
+            </span>
+</div>
+<!-- Motivational Headline & Intro -->
+<div class="space-y-2">
+<h1 class="text-headline-xl font-headline-xl text-on-surface tracking-tight">
+              Heute 30 Fragen – <span class="text-primary">du schaffst das!</span>
+</h1>
+<p class="text-body-lg font-body-lg text-on-surface-variant max-w-2xl">
+              Fokussiere dich auf deine Schwachstellen im Bewegungsapparat und wiederhole die Grundlagen der Zellbiologie für maximale Examenssicherheit.
+            </p>
+</div>
+<!-- Action Buttons -->
+<div class="pt-2 flex flex-wrap items-center gap-3 sm:gap-4">
+<!-- Primary Action -->
+<button class="inline-flex items-center gap-3 px-6 py-3.5 rounded-full bg-primary hover:bg-primary-container text-on-primary font-label-lg text-label-lg shadow-sm transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]">
+<span class="material-symbols-outlined text-[20px]" data-weight="fill">play_arrow</span>
+<span class="flex flex-col text-left leading-tight">
+<span>Jetzt lernen</span>
+<span class="text-label-sm font-label-sm font-normal text-on-primary/80">Smart-Mix: Fehler zuerst</span>
+</span>
+</button>
+<!-- Secondary Outlined Button -->
+<button class="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-surface-container-low hover:bg-surface-container text-primary border border-outline-variant font-label-lg text-label-lg transition-all duration-200 hover:scale-[1.01] active:scale-[0.99]">
+<span class="material-symbols-outlined text-[18px]">quiz</span>
+<span>Prüfungssimulation (20 Fragen)</span>
+</button>
+</div>
+</div>
+<!-- Right Side: Circular Progress Ring Graphic (Cols 9-12) -->
+<div class="lg:col-span-4 flex justify-center lg:justify-end">
+<div class="relative p-6 rounded-lg bg-surface-container-low/70 border border-outline-variant/30 flex flex-col items-center text-center w-full max-w-xs sm:max-w-sm">
+<!-- SVG Progress Ring -->
+<div class="relative w-36 h-36 flex items-center justify-center">
+<svg class="w-full h-full -rotate-90 transform" viewbox="0 0 120 120">
+<!-- Background track -->
+<circle cx="60" cy="60" fill="none" r="50" stroke="#F6F3EE" stroke-width="10"></circle>
+<!-- Progress stroke: 38% of circumference (2 * pi * 50 = 314.16), stroke-dashoffset = 314.16 * (1 - 0.38) = 194.78 -->
+<circle class="transition-all duration-700 ease-out" cx="60" cy="60" fill="none" r="50" stroke="#af2148" stroke-dasharray="314.16" stroke-dashoffset="194.78" stroke-linecap="round" stroke-width="10"></circle>
+</svg>
+<!-- Center Metric -->
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-headline-lg font-headline-lg text-on-surface">38 %</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant font-bold">SICHER</span>
+</div>
+</div>
+<!-- Ring Subline & Metric details -->
+<div class="mt-3 space-y-1">
+<div class="text-label-md font-label-md text-on-surface font-semibold">124 von 324 Fragen</div>
+<div class="inline-flex items-center gap-1 text-label-sm font-label-sm text-secondary font-bold">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>
+                +5% seit gestern
+              </div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Three Stat Tiles Section -->
+<section aria-label="Lernstatus Übersicht" class="grid grid-cols-1 md:grid-cols-3 gap-5">
+<!-- Tile 1: 124 gemeistert -->
+<div class="p-5 rounded-lg bg-surface-container-lowest border border-outline-variant/40 shadow-sm flex items-start justify-between transition-all hover:scale-[1.01] hover:border-outline-variant">
+<div class="space-y-1.5">
+<div class="flex items-center gap-2">
+<span class="w-8 h-8 rounded-full bg-secondary-container/40 text-on-secondary-fixed-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]" data-weight="fill">check_circle</span>
+</span>
+<span class="text-label-md font-label-md text-on-surface-variant">Langzeitgedächtnis</span>
+</div>
+<div class="text-headline-lg font-headline-lg text-on-surface pt-1">124 gemeistert</div>
+<div class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-secondary-fixed/50 text-on-secondary-fixed-variant font-label-sm text-label-sm font-bold">
+<span class="material-symbols-outlined text-[14px]">auto_awesome</span>
+            Super Quote: 88%
+          </div>
+</div>
+<div class="text-secondary/70">
+<span class="material-symbols-outlined text-[28px]">verified</span>
+</div>
+</div>
+<!-- Tile 2: 31 wiederholen -->
+<div class="p-5 rounded-lg bg-surface-container-lowest border border-outline-variant/40 shadow-sm flex items-start justify-between transition-all hover:scale-[1.01] hover:border-outline-variant">
+<div class="space-y-1.5">
+<div class="flex items-center gap-2">
+<span class="w-8 h-8 rounded-full bg-primary-fixed text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]" data-weight="fill">replay</span>
+</span>
+<span class="text-label-md font-label-md text-on-surface-variant">Fällige Wiederholungen</span>
+</div>
+<div class="text-headline-lg font-headline-lg text-on-surface pt-1">31 wiederholen</div>
+<div class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-primary-fixed/60 text-on-primary-fixed-variant font-label-sm text-label-sm font-bold">
+<span class="material-symbols-outlined text-[14px]">priority_high</span>
+            Fokus heute
+          </div>
+</div>
+<div class="text-primary/70">
+<span class="material-symbols-outlined text-[28px]">history</span>
+</div>
+</div>
+<!-- Tile 3: 169 offen -->
+<div class="p-5 rounded-lg bg-surface-container-lowest border border-outline-variant/40 shadow-sm flex items-start justify-between transition-all hover:scale-[1.01] hover:border-outline-variant">
+<div class="space-y-1.5">
+<div class="flex items-center gap-2">
+<span class="w-8 h-8 rounded-full bg-surface-container text-on-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">help_outline</span>
+</span>
+<span class="text-label-md font-label-md text-on-surface-variant">Noch nicht begonnen</span>
+</div>
+<div class="text-headline-lg font-headline-lg text-on-surface pt-1">169 offen</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant block font-medium">
+            von 324 Fragen gesamt
+          </span>
+</div>
+<div class="text-on-surface-variant/60">
+<span class="material-symbols-outlined text-[28px]">hourglass_empty</span>
+</div>
+</div>
+</section>
+<!-- Chapter Section ("Kapitel") -->
+<section class="space-y-6">
+<!-- Section Header & Filter Tabs -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-outline-variant/30 pb-4">
+<div class="flex items-center gap-3">
+<h2 class="text-headline-md font-headline-md text-on-surface flex items-center gap-2">
+<span>Kapitel</span>
+</h2>
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface-variant text-label-sm font-label-sm font-bold">
+            13 Themen
+          </span>
+</div>
+<!-- Filter Pill Tabs -->
+<div class="flex items-center gap-1.5 bg-surface-container-low p-1 rounded-full border border-outline-variant/30 self-start sm:self-auto">
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container-lowest text-primary shadow-sm font-label-md text-label-md font-bold transition-all">
+            Alle (13)
+          </button>
+<button class="px-3.5 py-1.5 rounded-full text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-all">
+            Wiederholen
+          </button>
+<button class="px-3.5 py-1.5 rounded-full text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-all">
+            Offen
+          </button>
+</div>
+</div>
+<!-- 3-Column Responsive Grid containing exactly 13 Chapter Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+<!-- Chapter Card 1 -->
+<div class="group p-5 rounded-lg bg-surface-container-lowest border border-outline-variant/40 shadow-sm hover:border-outline-variant hover:shadow-md transition-all flex flex-col justify-between">
+<div class="space-y-3">
+<div class="flex items-start justify-between gap-2">
+<span class="text-label-md font-label-md text-secondary font-bold px-2 py-0.5 rounded-full bg-secondary-container/40">
+                85% sicher
+              </span>
+<span class="material-symbols-outlined text-[18px] text-secondary" data-weight="fill">verified</span>
+</div>
+<div>
+<h3 class="text-headline-md font-headline-md text-on-surface group-hover:text-primary transition-colors">1 Grundlagen</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">36 Fragen · Zelle, Terminologie</p>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-outline-variant/20">
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary rounded-full" style="width: 85%"></div>
+</div>
+</div>
+</div>
+<!-- Chapter Card 2 -->
+<div class="group p-5 rounded-lg bg-surface-container-lowest border border-outline-variant/40 shadow-sm hover:border-outline-variant hover:shadow-md transition-all flex flex-col justify-between">
+<div class="space-y-3">
+<div class="flex items-start justify-between gap-2">
+<span class="text-label-md font-label-md text-secondary font-bold px-2 py-0.5 rounded-full bg-secondary-container/40">
+                70% sicher
+              </span>
+<span class="material-symbols-outlined text-[18px] text-secondary" data-weight="fill">check_circle</span>
+</div>
+<div>
+<h3 class="text-headline-md font-headline-md text-on-surface group-hover:text-primary transition-colors">2 Zelle</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">27 Fragen · Organellen, Membran</p>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-outline-variant/20">
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary rounded-full" style="width: 70%"></div>
+</div>
+</div>
+</div>
+<!-- Chapter Card 3 -->
+<div class="group p-5 rounded-lg bg-surface-container-lowest border border-outline-variant/40 shadow-sm hover:border-outline-variant hover:shadow-md transition-all flex flex-col justify-between">
+<div class="space-y-3">
+<div class="flex items-start justify-between gap-2">
+<span class="text-label-md font-label-md text-on-surface-variant font-bold px-2 py-0.5 rounded-full bg-surface-container">
+                45% Fortschritt
+              </span>
+<span class="material-symbols-outlined text-[18px] text-outline">pending</span>
+</div>
+<div>
+<h3 class="text-headline-md font-headline-md text-on-surface group-hover:text-primary transition-colors">3 Gewebe</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">36 Fragen · Epithel, Binde-, Muskelgewebe</p>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-outline-variant/20">
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary/70 rounded-full" style="width: 45%"></div>
+</div>
+</div>
+</div>
+<!-- Chapter Card 4 -->
+<div class="group p-5 rounded-lg bg-surface-container-lowest border border-outline-variant/40 shadow-sm hover:border-outline-variant hover:shadow-md transition-all flex flex-col justify-between">
+<div class="space-y-3">
+<div class="flex items-start justify-between gap-2">
+<span class="text-label-md font-label-md text-secondary font-bold px-2 py-0.5 rounded-full bg-secondary-container/40">
+                60% sicher
+              </span>
+<span class="material-symbols-outlined text-[18px] text-secondary">check_circle</span>
+</div>
+<div>
+<h3 class="text-headline-md font-headline-md text-on-surface group-hover:text-primary transition-colors">4.1 Haut</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">22 Fragen · Schichten &amp; Sensoren</p>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-outline-variant/20">
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary/80 rounded-full" style="width: 60%"></div>
+</div>
+</div>
+</div>
+<!-- Chapter Card 5 (Special Alert Focus) -->
+<div class="group p-5 rounded-lg bg-error-container/20 border-2 border-primary shadow-sm hover:shadow-md transition-all flex flex-col justify-between relative">
+<div class="space-y-3">
+<div class="flex items-start justify-between gap-2">
+<span class="text-label-md font-label-md text-primary font-bold px-2.5 py-0.5 rounded-full bg-primary-fixed">
+                Fokus nötig: 24% sicher
+              </span>
+<span class="material-symbols-outlined text-[18px] text-primary" data-weight="fill">priority_high</span>
+</div>
+<div>
+<h3 class="text-headline-md font-headline-md text-primary group-hover:underline">4.2 Bewegungsapparat</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">48 Fragen · Knochen, Gelenke, Muskulatur</p>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-outline-variant/30">
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 24%"></div>
+</div>
+</div>
+</div>
+<!-- Chapter Card 6 -->
+<div class="group p-5 rounded-lg bg-surface-container-lowest border border-outline-variant/40 shadow-sm hover:border-outline-variant hover:shadow-md transition-all flex flex-col justify-between">
+<div class="space-y-3">
+<div class="flex items-start justify-between gap-2">
+<span class="text-label-md font-label-md text-on-surface-variant font-bold px-2 py-0.5 rounded-full bg-surface-container">
+                35% Fortschritt
+              </span>
+<span class="material-symbols-outlined text-[18px] text-outline">pending</span>
+</div>
+<div>
+<h3 class="text-headline-md font-headline-md text-on-surface group-hover:text-primary transition-colors">4.3 Nervensystem &amp; Sinne</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">42 Fragen · ZNS, PNS, Reflexe</p>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-outline-variant/20">
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary/60 rounded-full" style="width: 35%"></div>
+</div>
+</div>
+</div>
+<!-- Chapter Card 7 -->
+<div class="group p-5 rounded-lg bg-surface-container-lowest border border-outline-variant/40 shadow-sm hover:border-outline-variant hover:shadow-md transition-all flex flex-col justify-between">
+<div class="space-y-3">
+<div class="flex items-start justify-between gap-2">
+<span class="text-label-md font-label-md text-on-surface-variant font-bold px-2 py-0.5 rounded-full bg-surface-container">
+                50% Fortschritt
+              </span>
+<span class="material-symbols-outlined text-[18px] text-outline">timelapse</span>
+</div>
+<div>
+<h3 class="text-headline-md font-headline-md text-on-surface group-hover:text-primary transition-colors">4.4 Atmung</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">19 Fragen · Lunge, Gasaustausch</p>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-outline-variant/20">
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary/70 rounded-full" style="width: 50%"></div>
+</div>
+</div>
+</div>
+<!-- Chapter Card 8 -->
+<div class="group p-5 rounded-lg bg-surface-container-lowest border border-outline-variant/40 shadow-sm hover:border-outline-variant hover:shadow-md transition-all flex flex-col justify-between">
+<div class="space-y-3">
+<div class="flex items-start justify-between gap-2">
+<span class="text-label-md font-label-md text-on-surface-variant font-bold px-2 py-0.5 rounded-full bg-surface-container">
+                40% Fortschritt
+              </span>
+<span class="material-symbols-outlined text-[18px] text-outline">favorite_border</span>
+</div>
+<div>
+<h3 class="text-headline-md font-headline-md text-on-surface group-hover:text-primary transition-colors">4.5 Herz-Kreislauf</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">28 Fragen · Kreisläufe, Gefäße</p>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-outline-variant/20">
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary/60 rounded-full" style="width: 40%"></div>
+</div>
+</div>
+</div>
+<!-- Chapter Card 9 -->
+<div class="group p-5 rounded-lg bg-surface-container-lowest border border-outline-variant/40 shadow-sm hover:border-outline-variant hover:shadow-md transition-all flex flex-col justify-between">
+<div class="space-y-3">
+<div class="flex items-start justify-between gap-2">
+<span class="text-label-md font-label-md text-on-surface-variant font-bold px-2 py-0.5 rounded-full bg-surface-container">
+                30% Fortschritt
+              </span>
+<span class="material-symbols-outlined text-[18px] text-outline">pending</span>
+</div>
+<div>
+<h3 class="text-headline-md font-headline-md text-on-surface group-hover:text-primary transition-colors">4.6 Verdauung</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">25 Fragen · Magen, Darm, Leber</p>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-outline-variant/20">
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary/50 rounded-full" style="width: 30%"></div>
+</div>
+</div>
+</div>
+<!-- Chapter Card 10 -->
+<div class="group p-5 rounded-lg bg-surface-container-lowest border border-outline-variant/40 shadow-sm hover:border-outline-variant hover:shadow-md transition-all flex flex-col justify-between">
+<div class="space-y-3">
+<div class="flex items-start justify-between gap-2">
+<span class="text-label-md font-label-md text-on-surface-variant font-bold px-2 py-0.5 rounded-full bg-surface-container">
+                15% Fortschritt
+              </span>
+<span class="material-symbols-outlined text-[18px] text-outline">timelapse</span>
+</div>
+<div>
+<h3 class="text-headline-md font-headline-md text-on-surface group-hover:text-primary transition-colors">4.7 Niere &amp; Geschlechtsorgane</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">21 Fragen · Nephron, Homöostase</p>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-outline-variant/20">
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary/40 rounded-full" style="width: 15%"></div>
+</div>
+</div>
+</div>
+<!-- Chapter Card 11 -->
+<div class="group p-5 rounded-lg bg-surface-container-lowest border border-outline-variant/40 shadow-sm hover:border-outline-variant hover:shadow-md transition-all flex flex-col justify-between">
+<div class="space-y-3">
+<div class="flex items-start justify-between gap-2">
+<span class="text-label-md font-label-md text-on-surface-variant font-bold px-2 py-0.5 rounded-full bg-surface-container">
+                20% Fortschritt
+              </span>
+<span class="material-symbols-outlined text-[18px] text-outline">timelapse</span>
+</div>
+<div>
+<h3 class="text-headline-md font-headline-md text-on-surface group-hover:text-primary transition-colors">4.8 Hormone</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">18 Fragen · Endokrines System</p>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-outline-variant/20">
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary/40 rounded-full" style="width: 20%"></div>
+</div>
+</div>
+</div>
+<!-- Chapter Card 12 -->
+<div class="group p-5 rounded-lg bg-surface-container-lowest border border-outline-variant/40 shadow-sm hover:border-outline-variant hover:shadow-md transition-all flex flex-col justify-between">
+<div class="space-y-3">
+<div class="flex items-start justify-between gap-2">
+<span class="text-label-md font-label-md text-on-surface-variant font-bold px-2 py-0.5 rounded-full bg-surface-container">
+                10% Fortschritt
+              </span>
+<span class="material-symbols-outlined text-[18px] text-outline">timelapse</span>
+</div>
+<div>
+<h3 class="text-headline-md font-headline-md text-on-surface group-hover:text-primary transition-colors">4.9 Blut &amp; Immunsystem</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">24 Fragen · Leukozyten, Abwehr</p>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-outline-variant/20">
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary/30 rounded-full" style="width: 10%"></div>
+</div>
+</div>
+</div>
+<!-- Chapter Card 13 -->
+<div class="group p-5 rounded-lg bg-surface-container-lowest border border-outline-variant/40 shadow-sm hover:border-outline-variant hover:shadow-md transition-all flex flex-col justify-between">
+<div class="space-y-3">
+<div class="flex items-start justify-between gap-2">
+<span class="text-label-md font-label-md text-outline font-bold px-2 py-0.5 rounded-full bg-surface-container-high">
+                0% Neu
+              </span>
+<span class="material-symbols-outlined text-[18px] text-outline">fiber_new</span>
+</div>
+<div>
+<h3 class="text-headline-md font-headline-md text-on-surface group-hover:text-primary transition-colors">5 Entwicklung</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">16 Fragen · Embryologie, Wachstum</p>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-outline-variant/20">
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-outline-variant/50 rounded-full" style="width: 2%"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Mobile Bottom Navigation (Responsive Pivot as mandated by Platform & Layout Rules) -->
+<nav aria-label="Mobile Navigation" class="md:hidden sticky bottom-0 z-40 bg-surface/95 backdrop-blur-md shadow-lg px-4 py-2 border-t-0 flex items-center justify-around">
+<a class="flex flex-col items-center gap-1 text-on-surface-variant hover:text-primary p-1" href="#">
+<span class="material-symbols-outlined text-[22px]">calendar_month</span>
+<span class="text-label-sm font-label-sm">Lernplan</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-primary font-bold p-1" href="#">
+<span class="material-symbols-outlined text-[22px]" data-weight="fill">menu_book</span>
+<span class="text-label-sm font-label-sm">Kapitel</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-on-surface-variant hover:text-primary p-1" href="#">
+<span class="material-symbols-outlined text-[22px]">insights</span>
+<span class="text-label-sm font-label-sm">Statistiken</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-on-surface-variant hover:text-primary p-1" href="#">
+<span class="material-symbols-outlined text-[22px]">quiz</span>
+<span class="text-label-sm font-label-sm">Simulation</span>
+</a>
+</nav>
+</body></html>

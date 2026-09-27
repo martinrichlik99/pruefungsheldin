@@ -1,0 +1,298 @@
+{
+  "id": "aphi1",
+  "titel": "Anatomie und Physiologie I",
+  "kurz": "APHI1",
+  "datum": "2026-10-12",
+  "form": "schriftlich: Richtig/Falsch, Ankreuzen, kurze Antworten",
+  "kapitel": [
+    {
+      "nr": "1.1",
+      "titel": "Medizinische Terminologie"
+    },
+    {
+      "nr": "1.2",
+      "titel": "Embryologie"
+    },
+    {
+      "nr": "1.3",
+      "titel": "Anatomie"
+    },
+    {
+      "nr": "1.4",
+      "titel": "Physiologie"
+    },
+    {
+      "nr": "2",
+      "titel": "Zelle"
+    },
+    {
+      "nr": "2.1",
+      "titel": "Bestandteile der Zelle"
+    },
+    {
+      "nr": "2.2",
+      "titel": "Zellzyklus – Zellteilung"
+    },
+    {
+      "nr": "3",
+      "titel": "Gewebe"
+    },
+    {
+      "nr": "3.1",
+      "titel": "Epithelgewebe"
+    },
+    {
+      "nr": "3.2",
+      "titel": "Binde- und Stützgewebe"
+    },
+    {
+      "nr": "3.3",
+      "titel": "Muskelgewebe"
+    },
+    {
+      "nr": "3.4",
+      "titel": "Nervengewebe"
+    },
+    {
+      "nr": "4",
+      "titel": "Organe und Organsysteme"
+    },
+    {
+      "nr": "4.1",
+      "titel": "Haut und Hautanhangsorgane"
+    },
+    {
+      "nr": "4.2",
+      "titel": "Bewegungsapparat"
+    },
+    {
+      "nr": "4.3.1",
+      "titel": "Nervensystem"
+    },
+    {
+      "nr": "4.3.2",
+      "titel": "Sinnesorgane"
+    },
+    {
+      "nr": "4.4.1",
+      "titel": "Atemwege"
+    },
+    {
+      "nr": "4.4.2",
+      "titel": "Lunge"
+    },
+    {
+      "nr": "4.5.1",
+      "titel": "Herz"
+    },
+    {
+      "nr": "4.5.2",
+      "titel": "Kreisläufe und Gefäße"
+    },
+    {
+      "nr": "4.6",
+      "titel": "Verdauungssystem"
+    },
+    {
+      "nr": "4.6.1",
+      "titel": "Mund und Speiseröhre"
+    },
+    {
+      "nr": "4.6.2",
+      "titel": "Magen und Dünndarm"
+    },
+    {
+      "nr": "4.6.3",
+      "titel": "Dickdarm"
+    },
+    {
+      "nr": "4.6.4",
+      "titel": "Leber, Galle"
+    },
+    {
+      "nr": "4.6.5",
+      "titel": "Bauchspeicheldrüse"
+    },
+    {
+      "nr": "4.7.1",
+      "titel": "Nieren"
+    },
+    {
+      "nr": "4.7.2",
+      "titel": "Harnleiter, Harnblase, Harnröhre"
+    },
+    {
+      "nr": "4.7.3",
+      "titel": "Geschlechtsorgane"
+    },
+    {
+      "nr": "4.8",
+      "titel": "Endokrines System"
+    },
+    {
+      "nr": "4.8.1",
+      "titel": "Hypothalamus und Hypophyse"
+    },
+    {
+      "nr": "4.8.2",
+      "titel": "Schilddrüse"
+    },
+    {
+      "nr": "4.8.3",
+      "titel": "Nebenschilddrüse"
+    },
+    {
+      "nr": "4.8.4",
+      "titel": "Nebenniere"
+    },
+    {
+      "nr": "4.8.5",
+      "titel": "Pankreas (endokrin)"
+    },
+    {
+      "nr": "4.8.6",
+      "titel": "Eierstöcke und Hoden"
+    },
+    {
+      "nr": "4.8.7",
+      "titel": "Diffuses endokrines System"
+    },
+    {
+      "nr": "4.9.1",
+      "titel": "Blut"
+    },
+    {
+      "nr": "4.9.2",
+      "titel": "Lymphatisches System"
+    },
+    {
+      "nr": "4.9.3",
+      "titel": "Immunsystem"
+    },
+    {
+      "nr": "5.1",
+      "titel": "Präembryonalperiode"
+    },
+    {
+      "nr": "5.2",
+      "titel": "Embryonalphase"
+    },
+    {
+      "nr": "5.3",
+      "titel": "Fetalperiode"
+    },
+    {
+      "nr": "5.4",
+      "titel": "Neugeborenenperiode"
+    }
+  ],
+  "gruppen": [
+    {
+      "nr": "1",
+      "titel": "Grundlagen",
+      "thema": "Terminologie, Embryologie, Lage",
+      "praefix": [
+        "1."
+      ]
+    },
+    {
+      "nr": "2",
+      "titel": "Zelle",
+      "thema": "Organellen, Membran, Zellzyklus",
+      "praefix": [
+        "2"
+      ]
+    },
+    {
+      "nr": "3",
+      "titel": "Gewebe",
+      "thema": "Epithel, Binde-, Muskel-, Nervengewebe",
+      "praefix": [
+        "3"
+      ]
+    },
+    {
+      "nr": "4.1",
+      "titel": "Organe & Haut",
+      "thema": "Hautschichten, Anhangsgebilde",
+      "praefix": [
+        "4.1"
+      ],
+      "genau": [
+        "4"
+      ]
+    },
+    {
+      "nr": "4.2",
+      "titel": "Bewegungsapparat",
+      "thema": "Knochen, Gelenke, Muskulatur",
+      "praefix": [
+        "4.2"
+      ]
+    },
+    {
+      "nr": "4.3",
+      "titel": "Nervensystem & Sinne",
+      "thema": "ZNS, PNS, Reflexe, Sinnesorgane",
+      "praefix": [
+        "4.3"
+      ]
+    },
+    {
+      "nr": "4.4",
+      "titel": "Atmung",
+      "thema": "Atemwege, Lunge, Gasaustausch",
+      "praefix": [
+        "4.4"
+      ]
+    },
+    {
+      "nr": "4.5",
+      "titel": "Herz-Kreislauf",
+      "thema": "Herz, Kreisläufe, Gefäße",
+      "praefix": [
+        "4.5"
+      ]
+    },
+    {
+      "nr": "4.6",
+      "titel": "Verdauung",
+      "thema": "Magen, Darm, Leber, Pankreas",
+      "praefix": [
+        "4.6"
+      ]
+    },
+    {
+      "nr": "4.7",
+      "titel": "Niere & Geschlechtsorgane",
+      "thema": "Niere, Harnwege, Geschlechtsorgane",
+      "praefix": [
+        "4.7"
+      ]
+    },
+    {
+      "nr": "4.8",
+      "titel": "Hormone",
+      "thema": "Hypophyse, Schilddrüse, Nebenniere",
+      "praefix": [
+        "4.8"
+      ]
+    },
+    {
+      "nr": "4.9",
+      "titel": "Blut & Immunsystem",
+      "thema": "Blutzellen, Lymphe, Abwehr",
+      "praefix": [
+        "4.9"
+      ]
+    },
+    {
+      "nr": "5",
+      "titel": "Entwicklung",
+      "thema": "Keimblätter, Embryo, Neugeborenes",
+      "praefix": [
+        "5"
+      ]
+    }
+  ]
+}
