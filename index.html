@@ -138,6 +138,18 @@
   .ende-karte p { color: var(--leise); margin: 10px 0 28px; }
   .ende-karte .knopf-reihe { justify-content: center; }
 
+  .ende-liste { text-align: left; margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--linie); }
+  .ende-liste h3 { font-size: 17px; margin-bottom: 10px; }
+  .ende-liste ol { padding-left: 22px; }
+  .ende-liste li { margin-bottom: 12px; font-size: 15px; }
+  .ende-liste li span { display: block; color: var(--mint-text); font-weight: 600; }
+
+  #sim-dialog { margin: auto; max-width: calc(100vw - 32px); border: 1px solid var(--linie); border-radius: 26px; padding: 28px; text-align: center; background: var(--karte); color: var(--text); box-shadow: var(--schatten); }
+  #sim-dialog::backdrop { background: rgba(34, 26, 21, 0.4); }
+  #sim-dialog h2 { font-size: 20px; margin-bottom: 16px; }
+  #sim-dialog .knopf-reihe { justify-content: center; }
+  #sim-dialog form { margin-top: 14px; }
+
   .toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: #1f3b31; color: #eafff5; padding: 12px 22px; border-radius: 999px; font-weight: 600; display: none; z-index: 5; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
 
   @media (max-width: 1060px) { .kapitel-raster { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
@@ -201,7 +213,7 @@
         <div class="knopf-reihe">
           <button type="button" class="knopf knopf-haupt" id="jetzt-lernen"><span aria-hidden="true">▶</span><span>Jetzt lernen<small>Smart-Mix: Fehler zuerst</small></span></button>
           <button type="button" class="knopf knopf-rand" id="fehler" title="Nur die zuletzt falsch beantworteten Fragen">✗ Fehler üben</button>
-          <button type="button" class="knopf knopf-rand" id="simulation" title="Prüfungssimulation mit 20 Fragen und Note">📝 Simulation</button>
+          <button type="button" class="knopf knopf-rand" id="simulation" title="Prüfungssimulation mit 20, 30 oder 40 Fragen und Note">📝 Simulation</button>
         </div>
       </div>
       <div class="ring-karte">
@@ -263,9 +275,19 @@
         <button type="button" class="knopf knopf-rand" id="ende-fehler"></button>
         <button type="button" class="knopf knopf-haupt" id="ende-weiter">Weiterlernen</button>
       </div>
+      <section class="ende-liste" id="ende-liste" hidden></section>
     </div>
   </main>
 </div>
+<dialog id="sim-dialog" aria-labelledby="sim-titel">
+  <h2 id="sim-titel">Wie viele Fragen?</h2>
+  <div class="knopf-reihe">
+    <button type="button" class="knopf knopf-haupt" data-sim="20">20</button>
+    <button type="button" class="knopf knopf-haupt" data-sim="30">30</button>
+    <button type="button" class="knopf knopf-haupt" data-sim="40">40</button>
+  </div>
+  <form method="dialog"><button class="melden">Abbrechen</button></form>
+</dialog>
 <div class="toast" id="toast" role="status"></div>
 
 <script>
@@ -276,7 +298,6 @@
   var SPEICHER = "ph_" + PRUEFUNG + "_v1";
   var TAGESZIEL = 30;
   var RUNDE = 15;
-  var SIMULATION = 20;
   var GEMEISTERT = 3;
   var ABSTAND_TAGE = [0, 1, 2, 4];
   var TYP_NAME = { wf: "Richtig / Falsch", mc: "Ankreuzen", kurz: "Kurze Antwort" };
@@ -458,7 +479,7 @@
   function starte(art, quelle) {
     var liste;
     if (art === "simulation") {
-      liste = mische(fragen.filter(function (f) { return f.prio !== "niedrig"; })).slice(0, SIMULATION);
+      liste = mische(fragen.filter(function (f) { return f.prio !== "niedrig"; })).slice(0, quelle);
     } else if (art === "kapitel") {
       liste = smartMix(fragen.filter(function (f) { return gruppeVon(f).nr === quelle; }));
     } else if (art === "fehler") {
@@ -572,6 +593,11 @@
     var endeFehler = document.getElementById("ende-fehler");
     endeFehler.style.display = fehlerInRunde.length > 0 ? "" : "none";
     endeFehler.textContent = "✗ Fehler nochmal (" + fehlerInRunde.length + ")";
+    var liste = document.getElementById("ende-liste");
+    liste.hidden = rundenArt !== "simulation" || fehlerInRunde.length === 0;
+    liste.innerHTML = "<h3>Das war falsch – nochmal anschauen</h3><ol>" + fehlerInRunde.map(function (f) {
+      return "<li>" + esc(f.frage) + "<span>" + esc(f.antwortKurz) + "</span></li>";
+    }).join("") + "</ol>";
     zeige("ende");
   }
 
@@ -634,7 +660,13 @@
   });
 
   document.getElementById("jetzt-lernen").addEventListener("click", function () { starte("smart"); });
-  document.getElementById("simulation").addEventListener("click", function () { starte("simulation"); });
+  document.getElementById("simulation").addEventListener("click", function () { document.getElementById("sim-dialog").showModal(); });
+  document.getElementById("sim-dialog").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-sim]");
+    if (!b) { return; }
+    this.close();
+    starte("simulation", Number(b.getAttribute("data-sim")));
+  });
   document.getElementById("fehler").addEventListener("click", function () { starte("fehler"); });
   document.getElementById("ende-fehler").addEventListener("click", function () { starte("fehler", fehlerInRunde.slice()); });
   document.getElementById("kapitel").addEventListener("click", function (e) {
