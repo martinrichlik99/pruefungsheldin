@@ -149,6 +149,8 @@
   #sim-dialog h2 { font-size: 20px; margin-bottom: 16px; }
   #sim-dialog .knopf-reihe { justify-content: center; }
   #sim-dialog form { margin-top: 14px; }
+  #sim-dialog .quelle { max-width: 300px; margin: -6px auto 16px; }
+  .unten-links { display: flex; gap: 14px; flex-wrap: wrap; }
 
   .toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: #1f3b31; color: #eafff5; padding: 12px 22px; border-radius: 999px; font-weight: 600; display: none; z-index: 5; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
 
@@ -258,7 +260,10 @@
         <div class="erklaerung" id="erklaerung"></div>
         <div class="quelle" id="quelle"></div>
         <div class="unten">
-          <button type="button" class="melden" id="melden">⚑ Frage melden</button>
+          <div class="unten-links">
+            <button type="button" class="melden" id="melden">⚑ Frage melden</button>
+            <button type="button" class="melden" id="ausschliessen"></button>
+          </div>
           <button type="button" class="knopf knopf-haupt" id="weiter">Weiter →</button>
         </div>
       </div>
@@ -281,12 +286,13 @@
 </div>
 <dialog id="sim-dialog" aria-labelledby="sim-titel">
   <h2 id="sim-titel">Wie viele Fragen?</h2>
+  <p class="quelle" id="sim-info"></p>
   <div class="knopf-reihe">
     <button type="button" class="knopf knopf-haupt" data-sim="20">20</button>
     <button type="button" class="knopf knopf-haupt" data-sim="30">30</button>
     <button type="button" class="knopf knopf-haupt" data-sim="40">40</button>
   </div>
-  <form method="dialog"><button class="melden">Abbrechen</button></form>
+  <form method="dialog"><button class="melden">Abbrechen</button> <button type="button" class="melden" id="sim-reset" hidden>Ausschlüsse aufheben</button></form>
 </dialog>
 <div class="toast" id="toast" role="status"></div>
 
@@ -299,6 +305,7 @@
   var TAGESZIEL = 30;
   var RUNDE = 15;
   var GEMEISTERT = 3;
+  var SICHER = 4;
   var ABSTAND_TAGE = [0, 1, 2, 4];
   var TYP_NAME = { wf: "Richtig / Falsch", mc: "Ankreuzen", kurz: "Kurze Antwort" };
 
@@ -342,7 +349,7 @@
   }
 
   // ---------- Fortschritt (nur dieses Gerät) ----------
-  function leer() { return { fragen: {}, heute: { tag: "", anzahl: 0 }, serie: { anzahl: 0, tag: "" }, verlauf: { tag: "", start: 0 }, gemeldet: {} }; }
+  function leer() { return { fragen: {}, heute: { tag: "", anzahl: 0 }, serie: { anzahl: 0, tag: "" }, verlauf: { tag: "", start: 0 }, gemeldet: {}, ausgeschlossen: {} }; }
 
   function lade() {
     try {
@@ -369,6 +376,12 @@
   function istOffen(f) { return !status(f); }
   function istFehler(f) { var s = status(f); return !!s && s.stufe === 0; }
   function istFaellig(f) { var s = status(f); return !!s && s.stufe < GEMEISTERT && s.faellig <= tag(); }
+
+  function sicherGewusst(f) { var s = status(f); return !!s && s.richtig >= SICHER && s.stufe > 0; }
+  function ausgeschlossen(f) { return !!stand.ausgeschlossen[f.id]; }
+  function simulationsPool() {
+    return fragen.filter(function (f) { return f.prio !== "niedrig" && !ausgeschlossen(f) && !sicherGewusst(f); });
+  }
 
   function gruppeVon(f) {
     for (var i = 0; i < meta.gruppen.length; i++) {
@@ -479,7 +492,9 @@
   function starte(art, quelle) {
     var liste;
     if (art === "simulation") {
-      liste = mische(fragen.filter(function (f) { return f.prio !== "niedrig"; })).slice(0, quelle);
+      liste = mische(simulationsPool()).sort(function (a, b) {
+        return (status(a) ? status(a).richtig : 0) - (status(b) ? status(b).richtig : 0);
+      }).slice(0, quelle);
     } else if (art === "kapitel") {
       liste = smartMix(fragen.filter(function (f) { return gruppeVon(f).nr === quelle; }));
     } else if (art === "fehler") {
@@ -487,7 +502,7 @@
     } else {
       liste = smartMix(fragen).slice(0, RUNDE);
     }
-    if (liste.length === 0) { toast(art === "fehler" ? "Keine Fehler 🎉" : "Alles gemeistert 🎉 – nimm die Prüfungssimulation."); return; }
+    if (liste.length === 0) { toast(art === "fehler" ? "Keine Fehler 🎉" : art === "simulation" ? "Keine Fragen mehr übrig – hebe Ausschlüsse auf." : "Alles gemeistert 🎉 – nimm die Prüfungssimulation."); return; }
     rundenArt = art;
     rundenQuelle = quelle;
     runde = liste;
@@ -522,6 +537,7 @@
     document.getElementById("frage").textContent = f.frage;
     document.getElementById("rueckmeldung").style.display = "none";
     document.getElementById("melden").textContent = stand.gemeldet[f.id] ? "⚑ gemeldet" : "⚑ Frage melden";
+    zeichneAusschluss(f);
 
     var bereich = document.getElementById("antwortbereich");
     if (f.typ === "wf") {
@@ -536,6 +552,10 @@
       bereich.innerHTML = '<p class="quelle" style="margin:-8px 0 16px">Erst selbst überlegen (oder laut sagen), dann aufdecken.</p>' +
         '<div class="knopf-reihe" id="aufdecken-reihe"><button type="button" class="knopf knopf-haupt" id="aufdecken">Antwort zeigen</button></div>';
     }
+  }
+
+  function zeichneAusschluss(f) {
+    document.getElementById("ausschliessen").textContent = ausgeschlossen(f) ? "↩ Wieder in Simulation" : "🚫 Nicht mehr in Simulation";
   }
 
   function zeigeLoesung(richtig, selbst) {
@@ -659,8 +679,23 @@
     toast("Danke – Frage ist gemerkt.");
   });
 
+  document.getElementById("ausschliessen").addEventListener("click", function () {
+    var f = runde[index];
+    if (ausgeschlossen(f)) { delete stand.ausgeschlossen[f.id]; toast("Kommt in der Simulation wieder vor."); }
+    else { stand.ausgeschlossen[f.id] = true; toast("Kommt in der Simulation nicht mehr vor."); }
+    speichere();
+    zeichneAusschluss(f);
+  });
+
   document.getElementById("jetzt-lernen").addEventListener("click", function () { starte("smart"); });
-  document.getElementById("simulation").addEventListener("click", function () { document.getElementById("sim-dialog").showModal(); });
+  function zeichneSimInfo() {
+    var manuell = fragen.filter(ausgeschlossen).length;
+    var auto = fragen.filter(function (f) { return !ausgeschlossen(f) && f.prio !== "niedrig" && sicherGewusst(f); }).length;
+    document.getElementById("sim-info").textContent = simulationsPool().length + " Fragen im Pool · " + auto + " schon " + SICHER + "× richtig (raus) · " + manuell + " von dir ausgeschlossen";
+    document.getElementById("sim-reset").hidden = manuell === 0;
+  }
+  document.getElementById("simulation").addEventListener("click", function () { zeichneSimInfo(); document.getElementById("sim-dialog").showModal(); });
+  document.getElementById("sim-reset").addEventListener("click", function () { stand.ausgeschlossen = {}; speichere(); zeichneSimInfo(); });
   document.getElementById("sim-dialog").addEventListener("click", function (e) {
     var b = e.target.closest("[data-sim]");
     if (!b) { return; }
@@ -696,11 +731,12 @@
 
   // ---------- Laden ----------
   Promise.all([
-    fetch("pruefungen/" + PRUEFUNG + "/meta.json").then(function (r) { if (!r.ok) { throw new Error(r.status); } return r.json(); }),
-    fetch("pruefungen/" + PRUEFUNG + "/fragen.json").then(function (r) { if (!r.ok) { throw new Error(r.status); } return r.json(); })
+    fetch("pruefungen/" + PRUEFUNG + "/meta.json", { cache: "no-cache" }).then(function (r) { if (!r.ok) { throw new Error(r.status); } return r.json(); }),
+    fetch("pruefungen/" + PRUEFUNG + "/fragen.json", { cache: "no-cache" }).then(function (r) { if (!r.ok) { throw new Error(r.status); } return r.json(); })
   ]).then(function (daten) {
     meta = daten[0];
-    fragen = daten[1];
+    fragen = daten[1].filter(function (f) { var g = gruppeVon(f); return !g || g.pruefung !== false; });
+    meta.gruppen = meta.gruppen.filter(function (g) { return g.pruefung !== false; });
     zeichneStart();
   }).catch(function () {
     document.getElementById("held-titel").textContent = "Fragen konnten nicht geladen werden.";
