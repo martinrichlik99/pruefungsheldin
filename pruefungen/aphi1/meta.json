@@ -3,6 +3,7 @@
   "titel": "Anatomie und Physiologie I",
   "kurz": "APHI1",
   "datum": "2026-10-12",
+  "aktiv": false,
   "form": "schriftlich: Richtig/Falsch, Ankreuzen, kurze Antworten",
   "kapitel": [
     {

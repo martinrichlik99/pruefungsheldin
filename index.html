@@ -21,6 +21,7 @@
     --schatten: 0 4px 20px -2px rgba(74,64,58,0.06);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  [hidden] { display: none !important; }
   body { font-family: "Plus Jakarta Sans", -apple-system, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; }
   button { font: inherit; color: inherit; cursor: pointer; border: none; background: none; }
   button:focus-visible { outline: 3px solid var(--himbeer); outline-offset: 2px; }
@@ -30,6 +31,22 @@
   .kopf { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--linie); margin-bottom: 16px; flex-wrap: wrap; }
   .marke { display: flex; align-items: center; gap: 10px; font-size: 21px; font-weight: 800; color: var(--himbeer-dunkel); letter-spacing: -0.02em; }
   .marke img { border-radius: 9px; display: block; }
+  a.marke { text-decoration: none; }
+  a.marke:focus-visible { outline: 3px solid var(--himbeer); outline-offset: 2px; border-radius: 9px; }
+  .marke-zurueck { font-size: 18px; font-weight: 700; }
+
+  /* Themen-Auswahl */
+  #auswahl h1 { font-size: clamp(22px, 2.4vw, 30px); font-weight: 800; letter-spacing: -0.03em; margin: 8px 0 18px; }
+  #auswahl h1 span { color: var(--himbeer-dunkel); }
+  #auswahl section { margin-bottom: 24px; }
+  .themen-raster { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 14px; }
+  .thema { display: flex; flex-direction: column; gap: 6px; padding: 18px 20px; border-radius: 22px; border: 1px solid var(--linie); background: var(--karte); box-shadow: var(--schatten); color: inherit; text-decoration: none; transition: transform 0.15s, box-shadow 0.15s; }
+  .thema:hover { transform: translateY(-2px); box-shadow: 0 8px 28px -4px rgba(225,73,107,0.12); }
+  .thema:focus-visible { outline: 3px solid var(--himbeer); outline-offset: 2px; }
+  .thema-kurz { align-self: flex-start; font-size: 12px; font-weight: 700; letter-spacing: 0.05em; padding: 3px 10px; border-radius: 999px; background: var(--rose); color: var(--himbeer-dunkel); }
+  .thema h3 { font-size: 19px; font-weight: 700; letter-spacing: -0.01em; line-height: 1.25; }
+  .thema .unter { font-size: 14px; color: var(--leise); }
+  .thema .kapitel-fuss { padding-top: 8px; }
   .kopf-pillen { display: flex; gap: 10px; flex-wrap: wrap; }
   .pille { display: flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 999px; font-size: 14px; font-weight: 700; border: 1px solid var(--linie); background: var(--karte); }
   .pille-gold { background: var(--gold-hell); color: var(--gold-text); border-color: #f7dfa0; }
@@ -95,7 +112,7 @@
   .fuss button { color: var(--himbeer-dunkel); font-weight: 700; text-decoration: underline; font-size: 13px; }
 
   /* Quiz */
-  #quiz, #ende { display: none; }
+  #start, #quiz, #ende { display: none; }
   .quiz-kopf { display: flex; align-items: center; gap: 16px; margin-bottom: 14px; }
   .zurueck { padding: 10px 16px; border-radius: 999px; border: 1px solid var(--linie); background: var(--karte); font-weight: 600; font-size: 14px; }
   .quiz-titel { font-weight: 700; flex: 1; }
@@ -166,7 +183,7 @@
   @media (max-width: 600px) {
     .seite { padding: 0 14px 32px; }
     .kopf { gap: 6px; margin-bottom: 12px; }
-    .marke { font-size: 16px; gap: 7px; }
+    .marke { font-size: 15px; gap: 4px; }
     .marke img { width: 28px; height: 28px; }
     .kopf-pillen { flex-wrap: nowrap; gap: 5px; }
     .pille { padding: 4px 8px; font-size: 12.5px; gap: 4px; white-space: nowrap; }
@@ -200,12 +217,24 @@
 <body>
 <div class="seite">
   <header class="kopf">
-    <div class="marke"><img src="icons/icon-192.png" alt="" width="34" height="34">Prüfungsheldin</div>
-    <div class="kopf-pillen">
+    <a class="marke" href="#" title="Alle Themen"><span class="marke-zurueck" id="marke-zurueck" aria-hidden="true">‹</span><img src="icons/icon-192.png" alt="" width="34" height="34">Prüfungsheldin</a>
+    <div class="kopf-pillen" id="kopf-pillen">
       <span class="pille pille-gold" id="serie">🔥 0 Tage</span>
       <span class="pille"><span id="tagesziel">0/30 heute</span><span class="mini-leiste" aria-hidden="true"><b id="tagesziel-leiste" style="width:0%"></b></span></span>
     </div>
   </header>
+
+  <main id="auswahl">
+    <h1>Was lernst du <span>heute?</span></h1>
+    <section>
+      <div class="abschnitt-kopf"><h2>Aktuell</h2></div>
+      <div class="themen-raster" id="themen-aktiv"></div>
+    </section>
+    <section id="abgeschlossen-bereich">
+      <div class="abschnitt-kopf"><h2>Abgeschlossen</h2></div>
+      <div class="themen-raster" id="themen-alt"></div>
+    </section>
+  </main>
 
   <main id="start">
     <section class="held">
@@ -300,8 +329,8 @@
 (function () {
   "use strict";
 
-  var PRUEFUNG = "aphi1";
-  var SPEICHER = "ph_" + PRUEFUNG + "_v1";
+  var PRUEFUNGEN = ["neu", "aphi1"];
+  var PRUEFUNG = "";
   var TAGESZIEL = 30;
   var RUNDE = 15;
   var GEMEISTERT = 3;
@@ -351,9 +380,11 @@
   // ---------- Fortschritt (nur dieses Gerät) ----------
   function leer() { return { fragen: {}, heute: { tag: "", anzahl: 0 }, serie: { anzahl: 0, tag: "" }, verlauf: { tag: "", start: 0 }, gemeldet: {}, ausgeschlossen: {} }; }
 
-  function lade() {
+  function speicherName(id) { return "ph_" + id + "_v1"; }
+
+  function lade(id) {
     try {
-      var d = JSON.parse(localStorage.getItem(SPEICHER) || "null");
+      var d = JSON.parse(localStorage.getItem(speicherName(id)) || "null");
       if (!d || typeof d !== "object") { return leer(); }
       var l = leer();
       Object.keys(l).forEach(function (k) { if (!d[k] || typeof d[k] !== "object") { d[k] = l[k]; } });
@@ -365,11 +396,11 @@
   }
 
   function speichere() {
-    try { localStorage.setItem(SPEICHER, JSON.stringify(stand)); }
+    try { localStorage.setItem(speicherName(PRUEFUNG), JSON.stringify(stand)); }
     catch (e) { toast("Fortschritt konnte nicht gespeichert werden."); }
   }
 
-  var stand = lade();
+  var stand = leer();
 
   function status(f) { return stand.fragen[f.id] || null; }
   function istGemeistert(f) { var s = status(f); return !!s && s.stufe >= GEMEISTERT; }
@@ -383,9 +414,10 @@
     return fragen.filter(function (f) { return f.prio !== "niedrig" && !ausgeschlossen(f) && !sicherGewusst(f); });
   }
 
-  function gruppeVon(f) {
-    for (var i = 0; i < meta.gruppen.length; i++) {
-      var g = meta.gruppen[i];
+  function gruppeVon(f, gruppen) {
+    gruppen = gruppen || meta.gruppen;
+    for (var i = 0; i < gruppen.length; i++) {
+      var g = gruppen[i];
       if ((g.genau || []).indexOf(f.kapitel) > -1) { return g; }
       for (var j = 0; j < g.praefix.length; j++) { if (f.kapitel.indexOf(g.praefix[j]) === 0) { return g; } }
     }
@@ -398,11 +430,17 @@
   }
 
   // ---------- Startseite ----------
-  function tageBisPruefung() {
-    var t = meta.datum.split("-");
+  function countdownText(m) {
+    if (!m.datum) { return "Datum folgt"; }
+    var t = m.datum.split("-");
     var ziel = new Date(Number(t[0]), Number(t[1]) - 1, Number(t[2]));
     var heute = new Date(); heute.setHours(0, 0, 0, 0);
-    return Math.round((ziel - heute) / 86400000);
+    var tage = Math.round((ziel - heute) / 86400000);
+    return tage > 1 ? "Noch " + tage + " Tage" : tage === 1 ? "Morgen ist Prüfung" : tage === 0 ? "Heute ist Prüfung 🍀" : "Prüfung vorbei";
+  }
+
+  function datumText(m) {
+    return m.datum ? "Prüfung am " + new Date(m.datum + "T12:00").toLocaleDateString("de-AT", { day: "numeric", month: "long" }) : "";
   }
 
   function heuteAnzahl() { return stand.heute.tag === tag() ? stand.heute.anzahl : 0; }
@@ -430,15 +468,17 @@
     var sicher = prozent(fragen);
     if (stand.verlauf.tag !== tag()) { stand.verlauf = { tag: tag(), start: sicher }; speichere(); }
 
-    var tage = tageBisPruefung();
-    document.getElementById("countdown").textContent = "⏱ " + (tage > 1 ? "Noch " + tage + " Tage" : tage === 1 ? "Morgen ist Prüfung" : tage === 0 ? "Heute ist Prüfung 🍀" : "Prüfung vorbei");
-    document.getElementById("pruefung-titel").textContent = meta.titel + " · Prüfung am " + new Date(meta.datum + "T12:00").toLocaleDateString("de-AT", { day: "numeric", month: "long" });
+    document.getElementById("countdown").textContent = "⏱ " + countdownText(meta);
+    document.getElementById("pruefung-titel").textContent = meta.titel + (meta.datum ? " · " + datumText(meta) : "");
 
+    var ohneFragen = fragen.length === 0;
     var heute = heuteAnzahl();
     var rest = Math.max(TAGESZIEL - heute, 0);
-    document.getElementById("held-titel").innerHTML = rest > 0
-      ? "Heute noch " + rest + " Fragen – <span>du schaffst das!</span>"
+    document.getElementById("held-titel").innerHTML = ohneFragen ? "Fragen folgen – <span>bald geht's los!</span>"
+      : rest > 0 ? "Heute noch " + rest + " Fragen – <span>du schaffst das!</span>"
       : "Tagesziel geschafft – <span>stark! 💪</span>";
+    document.getElementById("jetzt-lernen").disabled = ohneFragen;
+    document.getElementById("simulation").disabled = ohneFragen;
 
     var gs = gruppenStand();
     var begonnen = gs.filter(function (x) { return x.gesehen > 0; });
@@ -472,7 +512,7 @@
         '<span class="unter">' + (istFokus ? "Fokus nötig · " : x.gesehen === 0 ? "Neu · " : "") + x.liste.length + ' Fragen' + (x.faellig > 0 ? ' · ' + x.faellig + ' fällig' : '') + '</span>' +
         '<span class="kapitel-fuss"><span class="leiste"><b class="' + (gut ? "gut" : "") + '" style="width:' + Math.max(x.prozent, x.gesehen > 0 ? 3 : 0) + '%"></b></span>' +
         '<span class="' + (gut ? "gut" : "") + '">' + x.prozent + ' %</span></span></button>';
-    }).join("") || '<p class="unter">Hier ist gerade nichts – super!</p>';
+    }).join("") || '<p class="unter">' + (ohneFragen ? "Kapitel kommen, sobald die Unterlagen da sind." : "Hier ist gerade nichts – super!") + '</p>';
 
     var gemeldet = Object.keys(stand.gemeldet).length;
     document.getElementById("fuss").innerHTML = "Fortschritt wird nur auf diesem Gerät gespeichert." +
@@ -517,7 +557,9 @@
   }
 
   function zeige(name) {
-    ["start", "quiz", "ende"].forEach(function (n) { document.getElementById(n).style.display = n === name ? "block" : "none"; });
+    ["auswahl", "start", "quiz", "ende"].forEach(function (n) { document.getElementById(n).style.display = n === name ? "block" : "none"; });
+    document.getElementById("kopf-pillen").hidden = name === "auswahl";
+    document.getElementById("marke-zurueck").hidden = name === "auswahl";
     window.scrollTo(0, 0);
   }
 
@@ -729,19 +771,69 @@
   document.getElementById("ende-zurueck").addEventListener("click", zurStart);
   document.getElementById("ende-weiter").addEventListener("click", function () { starte(rundenArt, rundenQuelle); });
 
-  // ---------- Laden ----------
-  Promise.all([
-    fetch("pruefungen/" + PRUEFUNG + "/meta.json", { cache: "no-cache" }).then(function (r) { if (!r.ok) { throw new Error(r.status); } return r.json(); }),
-    fetch("pruefungen/" + PRUEFUNG + "/fragen.json", { cache: "no-cache" }).then(function (r) { if (!r.ok) { throw new Error(r.status); } return r.json(); })
-  ]).then(function (daten) {
-    meta = daten[0];
-    fragen = daten[1].filter(function (f) { var g = gruppeVon(f); return !g || g.pruefung !== false; });
-    meta.gruppen = meta.gruppen.filter(function (g) { return g.pruefung !== false; });
-    zeichneStart();
-  }).catch(function () {
-    document.getElementById("held-titel").textContent = "Fragen konnten nicht geladen werden.";
-    document.getElementById("pruefung-titel").textContent = "Bitte Internetverbindung prüfen und die Seite neu laden.";
-  });
+  // ---------- Laden + Themen-Auswahl ----------
+  var geladen = {};
+  function holeJson(id, datei) {
+    return fetch("pruefungen/" + id + "/" + datei + ".json", { cache: "no-cache" }).then(function (r) { if (!r.ok) { throw new Error(r.status); } return r.json(); });
+  }
+  function holePruefung(id) {
+    if (!geladen[id]) {
+      geladen[id] = Promise.all([holeJson(id, "meta"), holeJson(id, "fragen")]).then(function (daten) {
+        var m = daten[0];
+        var f = daten[1].filter(function (x) { var g = gruppeVon(x, m.gruppen); return !g || g.pruefung !== false; });
+        m.gruppen = m.gruppen.filter(function (g) { return g.pruefung !== false; });
+        return { meta: m, fragen: f };
+      });
+    }
+    return geladen[id];
+  }
+
+  function themaKarte(id, p) {
+    var s = lade(id).fragen;
+    var gemeistert = p.fragen.filter(function (f) { return s[f.id] && s[f.id].stufe >= GEMEISTERT; }).length;
+    var pz = p.fragen.length ? Math.round(gemeistert / p.fragen.length * 100) : 0;
+    var gut = pz >= 60;
+    return '<a class="thema" href="#' + esc(id) + '"><span class="thema-kurz">' + esc(p.meta.kurz) + '</span>' +
+      '<h3>' + esc(p.meta.titel) + '</h3>' +
+      '<span class="unter">' + esc(countdownText(p.meta)) + (p.meta.datum ? " · " + esc(datumText(p.meta)) : "") + '</span>' +
+      (p.fragen.length === 0 ? '<span class="unter">Fragen folgen</span>' :
+        '<span class="kapitel-fuss"><span class="leiste"><b class="' + (gut ? "gut" : "") + '" style="width:' + pz + '%"></b></span>' +
+        '<span class="' + (gut ? "gut" : "") + '">' + pz + ' % sicher</span></span><span class="unter">' + p.fragen.length + ' Fragen</span>') + '</a>';
+  }
+
+  function ladeFehler() {
+    zeige("auswahl");
+    document.getElementById("themen-aktiv").innerHTML = '<p class="unter">Fragen konnten nicht geladen werden. Bitte Internetverbindung prüfen und die Seite neu laden.</p>';
+  }
+
+  function zeichneAuswahl() {
+    zeige("auswahl");
+    Promise.all(PRUEFUNGEN.map(holePruefung)).then(function (alle) {
+      var aktiv = "", alt = "";
+      alle.forEach(function (p, i) {
+        if (p.meta.aktiv === false) { alt += themaKarte(PRUEFUNGEN[i], p); } else { aktiv += themaKarte(PRUEFUNGEN[i], p); }
+      });
+      document.getElementById("themen-aktiv").innerHTML = aktiv || '<p class="unter">Gerade kein aktuelles Thema.</p>';
+      document.getElementById("themen-alt").innerHTML = alt;
+      document.getElementById("abgeschlossen-bereich").hidden = !alt;
+    }).catch(ladeFehler);
+  }
+
+  function route() {
+    var id = location.hash.slice(1);
+    if (PRUEFUNGEN.indexOf(id) < 0) { zeichneAuswahl(); return; }
+    holePruefung(id).then(function (p) {
+      PRUEFUNG = id;
+      meta = p.meta;
+      fragen = p.fragen;
+      stand = lade(id);
+      filter = "alle";
+      document.querySelectorAll(".filter button").forEach(function (x) { x.setAttribute("aria-pressed", String(x.getAttribute("data-filter") === "alle")); });
+      zurStart();
+    }).catch(ladeFehler);
+  }
+  window.addEventListener("hashchange", route);
+  route();
 })();
 </script>
 </body>
