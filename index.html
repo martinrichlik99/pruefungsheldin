@@ -225,9 +225,9 @@
   </header>
 
   <main id="auswahl">
-    <h1>Was lernst du <span>heute?</span></h1>
+    <h1 id="auswahl-titel">Was lernst du <span>heute?</span></h1>
     <section>
-      <div class="abschnitt-kopf"><h2>Aktuell</h2></div>
+      <div class="abschnitt-kopf"><h2 id="auswahl-abschnitt">Aktuell</h2></div>
       <div class="themen-raster" id="themen-aktiv"></div>
     </section>
     <section id="abgeschlossen-bereich">
@@ -329,14 +329,21 @@
 (function () {
   "use strict";
 
-  var PRUEFUNGEN = ["neu", "aphi1"];
+  var ORDNER = {
+    pkim: { titel: "Pathologie & klinisch innere Medizin", kurz: "PRÜFUNG", datum: "2026-11-30", inhalt: ["pathologie", "kim"] },
+    pathologie: { titel: "Pathologie", kurz: "PATHO", datum: "2026-11-30", inhalt: ["patho-alt", "patho"] }
+  };
+  var START = ["pkim", "aphi1"];
+  var PRUEFUNGEN = ["kim", "patho", "patho-alt", "aphi1"];
+  var ELTERN = {};
+  Object.keys(ORDNER).forEach(function (o) { ORDNER[o].inhalt.forEach(function (k) { ELTERN[k] = o; }); });
   var PRUEFUNG = "";
   var TAGESZIEL = 30;
   var RUNDE = 15;
   var GEMEISTERT = 3;
   var SICHER = 4;
   var ABSTAND_TAGE = [0, 1, 2, 4];
-  var TYP_NAME = { wf: "Richtig / Falsch", mc: "Ankreuzen", kurz: "Kurze Antwort" };
+  var TYP_NAME = { wf: "Richtig / Falsch", mc: "Ankreuzen", kurz: "Kurze Antwort", lueckentext: "Lückentext" };
 
   var meta = null;
   var fragen = [];
@@ -806,12 +813,41 @@
     document.getElementById("themen-aktiv").innerHTML = '<p class="unter">Fragen konnten nicht geladen werden. Bitte Internetverbindung prüfen und die Seite neu laden.</p>';
   }
 
-  function zeichneAuswahl() {
+  function blaetter(id) {
+    return ORDNER[id] ? ORDNER[id].inhalt.reduce(function (l, k) { return l.concat(blaetter(k)); }, []) : [id];
+  }
+
+  function ordnerKarte(id, pakete) {
+    var o = ORDNER[id], gesamt = 0, gemeistert = 0;
+    blaetter(id).forEach(function (b) {
+      var s = lade(b).fragen;
+      pakete[b].fragen.forEach(function (f) { gesamt++; if (s[f.id] && s[f.id].stufe >= GEMEISTERT) { gemeistert++; } });
+    });
+    var pz = gesamt ? Math.round(gemeistert / gesamt * 100) : 0;
+    var gut = pz >= 60;
+    return '<a class="thema" href="#' + esc(id) + '"><span class="thema-kurz">📁 ' + esc(o.kurz) + '</span>' +
+      '<h3>' + esc(o.titel) + '</h3>' +
+      '<span class="unter">' + esc(countdownText(o)) + (o.datum ? " · " + esc(datumText(o)) : "") + '</span>' +
+      '<span class="kapitel-fuss"><span class="leiste"><b class="' + (gut ? "gut" : "") + '" style="width:' + pz + '%"></b></span>' +
+      '<span class="' + (gut ? "gut" : "") + '">' + pz + ' % sicher</span></span>' +
+      '<span class="unter">' + o.inhalt.length + ' Bereiche · ' + gesamt + ' Fragen</span></a>';
+  }
+
+  function zeichneAuswahl(ordner) {
     zeige("auswahl");
-    Promise.all(PRUEFUNGEN.map(holePruefung)).then(function (alle) {
+    var ids = ordner ? ORDNER[ordner].inhalt : START;
+    var titel = document.getElementById("auswahl-titel");
+    if (ordner) { titel.textContent = ORDNER[ordner].titel; } else { titel.innerHTML = 'Was lernst du <span>heute?</span>'; }
+    document.getElementById("auswahl-abschnitt").textContent = ordner ? "Bereiche" : "Aktuell";
+    var benoetigt = ids.reduce(function (l, k) { return l.concat(blaetter(k)); }, []);
+    Promise.all(benoetigt.map(holePruefung)).then(function (alle) {
+      var pakete = {};
+      benoetigt.forEach(function (b, i) { pakete[b] = alle[i]; });
       var aktiv = "", alt = "";
-      alle.forEach(function (p, i) {
-        if (p.meta.aktiv === false) { alt += themaKarte(PRUEFUNGEN[i], p); } else { aktiv += themaKarte(PRUEFUNGEN[i], p); }
+      ids.forEach(function (k) {
+        if (ORDNER[k]) { aktiv += ordnerKarte(k, pakete); }
+        else if (pakete[k].meta.aktiv === false) { alt += themaKarte(k, pakete[k]); }
+        else { aktiv += themaKarte(k, pakete[k]); }
       });
       document.getElementById("themen-aktiv").innerHTML = aktiv || '<p class="unter">Gerade kein aktuelles Thema.</p>';
       document.getElementById("themen-alt").innerHTML = alt;
@@ -821,7 +857,10 @@
 
   function route() {
     var id = location.hash.slice(1);
-    if (PRUEFUNGEN.indexOf(id) < 0) { zeichneAuswahl(); return; }
+    document.querySelector("a.marke").setAttribute("href", "#" + (ELTERN[id] || ""));
+    document.querySelector("a.marke").title = ELTERN[id] ? "Zurück zu " + ORDNER[ELTERN[id]].titel : "Alle Themen";
+    if (ORDNER[id]) { zeichneAuswahl(id); document.getElementById("marke-zurueck").hidden = false; return; }
+    if (PRUEFUNGEN.indexOf(id) < 0) { zeichneAuswahl(""); return; }
     holePruefung(id).then(function (p) {
       PRUEFUNG = id;
       meta = p.meta;

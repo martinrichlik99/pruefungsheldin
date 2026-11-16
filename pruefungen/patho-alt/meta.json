@@ -1,0 +1,108 @@
+{
+  "id": "patho-alt",
+  "titel": "Pathologie – Altfragen",
+  "kurz": "PATHO-ALT",
+  "datum": "2026-11-30",
+  "aktiv": true,
+  "form": "MC-Test, Fragen aus der Prüfung des Vorjahrgangs (1 Antwort richtig)",
+  "kapitel": [
+    {
+      "nr": "1",
+      "titel": "Grundlagen"
+    },
+    {
+      "nr": "2",
+      "titel": "Tod & Obduktion"
+    },
+    {
+      "nr": "3",
+      "titel": "Krankheitslehre"
+    },
+    {
+      "nr": "4",
+      "titel": "Zellpathologie"
+    },
+    {
+      "nr": "5",
+      "titel": "Entzündung & Wundheilung"
+    },
+    {
+      "nr": "6",
+      "titel": "Tumorpathologie"
+    },
+    {
+      "nr": "7",
+      "titel": "Kreislaufstörungen"
+    },
+    {
+      "nr": "8",
+      "titel": "Stoffwechsel & Gefäße"
+    }
+  ],
+  "gruppen": [
+    {
+      "nr": "1",
+      "titel": "Grundlagen",
+      "thema": "",
+      "praefix": [
+        "1"
+      ]
+    },
+    {
+      "nr": "2",
+      "titel": "Tod & Obduktion",
+      "thema": "",
+      "praefix": [
+        "2"
+      ]
+    },
+    {
+      "nr": "3",
+      "titel": "Krankheitslehre",
+      "thema": "",
+      "praefix": [
+        "3"
+      ]
+    },
+    {
+      "nr": "4",
+      "titel": "Zellpathologie",
+      "thema": "",
+      "praefix": [
+        "4"
+      ]
+    },
+    {
+      "nr": "5",
+      "titel": "Entzündung & Wundheilung",
+      "thema": "",
+      "praefix": [
+        "5"
+      ]
+    },
+    {
+      "nr": "6",
+      "titel": "Tumorpathologie",
+      "thema": "",
+      "praefix": [
+        "6"
+      ]
+    },
+    {
+      "nr": "7",
+      "titel": "Kreislaufstörungen",
+      "thema": "",
+      "praefix": [
+        "7"
+      ]
+    },
+    {
+      "nr": "8",
+      "titel": "Stoffwechsel & Gefäße",
+      "thema": "",
+      "praefix": [
+        "8"
+      ]
+    }
+  ]
+}

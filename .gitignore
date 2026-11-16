@@ -1,3 +1,5 @@
 stichprobe/
 .DS_Store
 *.bak-*
+quellen/
+.claude/

@@ -1,0 +1,120 @@
+{
+  "id": "kim",
+  "titel": "Klinische Innere Medizin",
+  "kurz": "KIM",
+  "datum": "2026-11-30",
+  "aktiv": true,
+  "form": "elektronisch: Ankreuzen (1–2 richtig), Lückentexte, Freitext in Stichworten",
+  "kapitel": [
+    {
+      "nr": "1",
+      "titel": "Grundlagen"
+    },
+    {
+      "nr": "2",
+      "titel": "Kardiologie"
+    },
+    {
+      "nr": "3",
+      "titel": "Angiologie"
+    },
+    {
+      "nr": "4",
+      "titel": "Pulmologie"
+    },
+    {
+      "nr": "5",
+      "titel": "Gastroenterologie"
+    },
+    {
+      "nr": "6",
+      "titel": "Nephrologie"
+    },
+    {
+      "nr": "7",
+      "titel": "Endokrinologie & Stoffwechsel"
+    },
+    {
+      "nr": "8",
+      "titel": "Hämatologie"
+    },
+    {
+      "nr": "9",
+      "titel": "Infektiologie & Allergien"
+    }
+  ],
+  "gruppen": [
+    {
+      "nr": "1",
+      "titel": "Grundlagen",
+      "thema": "Anamnese, Untersuchung, Bildgebung, Therapie, Prävention",
+      "praefix": [
+        "1"
+      ]
+    },
+    {
+      "nr": "2",
+      "titel": "Kardiologie",
+      "thema": "Rhythmus, Hypertonie, KHK, Herzinfarkt, Reanimation",
+      "praefix": [
+        "2"
+      ]
+    },
+    {
+      "nr": "3",
+      "titel": "Angiologie",
+      "thema": "Arteriosklerose, Rauchen, pAVK, Aneurysma, Venen, Lungenembolie",
+      "praefix": [
+        "3"
+      ]
+    },
+    {
+      "nr": "4",
+      "titel": "Pulmologie",
+      "thema": "Spirometrie, Asthma, COPD, Pneumonie, Lungenkrebs",
+      "praefix": [
+        "4"
+      ]
+    },
+    {
+      "nr": "5",
+      "titel": "Gastroenterologie",
+      "thema": "Gastritis, Ulcus, Unverträglichkeiten, CED, Darmkrebs, Leber",
+      "praefix": [
+        "5"
+      ]
+    },
+    {
+      "nr": "6",
+      "titel": "Nephrologie",
+      "thema": "Nierenfunktion, Nierenversagen, Niereninsuffizienz",
+      "praefix": [
+        "6"
+      ]
+    },
+    {
+      "nr": "7",
+      "titel": "Endokrinologie & Stoffwechsel",
+      "thema": "Diabetes, Adipositas, Ernährung, Schilddrüse, Nebenniere",
+      "praefix": [
+        "7"
+      ]
+    },
+    {
+      "nr": "8",
+      "titel": "Hämatologie",
+      "thema": "Blut, Anämie, Leukämie, Lymphome, Gerinnung",
+      "praefix": [
+        "8"
+      ]
+    },
+    {
+      "nr": "9",
+      "titel": "Infektiologie & Allergien",
+      "thema": "Impfung, Fieber, Infektionswege, Harnwegsinfekt, Kinderkrankheiten, Allergie",
+      "praefix": [
+        "9"
+      ]
+    }
+  ]
+}
