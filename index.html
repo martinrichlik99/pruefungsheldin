@@ -141,7 +141,7 @@
   .urteil { font-size: 18px; font-weight: 800; margin-bottom: 6px; }
   .rueckmeldung.richtig .urteil { color: var(--mint-text); }
   .rueckmeldung.falsch .urteil { color: var(--rot); }
-  .loesung { font-weight: 700; font-size: 17px; margin-bottom: 8px; }
+  .loesung { font-weight: 700; font-size: 17px; margin-bottom: 8px; white-space: pre-line; }
   .erklaerung { color: #4a3b3d; font-size: 15.5px; max-width: 70ch; }
   .quelle { font-size: 13px; color: var(--leise); margin-top: 10px; }
   .unten { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 20px; flex-wrap: wrap; }
@@ -159,7 +159,7 @@
   .ende-liste h3 { font-size: 17px; margin-bottom: 10px; }
   .ende-liste ol { padding-left: 22px; }
   .ende-liste li { margin-bottom: 12px; font-size: 15px; }
-  .ende-liste li span { display: block; color: var(--mint-text); font-weight: 600; }
+  .ende-liste li span { display: block; color: var(--mint-text); font-weight: 600; white-space: pre-line; }
 
   #sim-dialog { margin: auto; max-width: calc(100vw - 32px); border: 1px solid var(--linie); border-radius: 26px; padding: 28px; text-align: center; background: var(--karte); color: var(--text); box-shadow: var(--schatten); }
   #sim-dialog::backdrop { background: rgba(34, 26, 21, 0.4); }
@@ -330,11 +330,12 @@
   "use strict";
 
   var ORDNER = {
-    pkim: { titel: "Pathologie & klinisch innere Medizin", kurz: "PRÜFUNG", datum: "2026-11-30", inhalt: ["pathologie", "kim"] },
-    pathologie: { titel: "Pathologie", kurz: "PATHO", datum: "2026-11-30", inhalt: ["patho-alt", "patho"] }
+    pkim: { titel: "Pathologie & klinisch innere Medizin", kurz: "PRÜFUNG", datum: "2026-11-30", inhalt: ["pathologie", "innere"] },
+    innere: { titel: "Klinische Innere Medizin", kurz: "KIM", datum: "2026-11-30", inhalt: ["kim-buddy", "kim"] },
+    pathologie: { titel: "Pathologie", kurz: "PATHO", datum: "2026-11-30", inhalt: ["patho-alt", "patho", "patho-buddy"] }
   };
   var START = ["pkim", "aphi1"];
-  var PRUEFUNGEN = ["kim", "patho", "patho-alt", "aphi1"];
+  var PRUEFUNGEN = ["kim", "kim-buddy", "patho", "patho-alt", "patho-buddy", "aphi1"];
   var ELTERN = {};
   Object.keys(ORDNER).forEach(function (o) { ORDNER[o].inhalt.forEach(function (k) { ELTERN[k] = o; }); });
   var PRUEFUNG = "";
@@ -614,7 +615,7 @@
     document.getElementById("urteil").textContent = selbst ? "Lösung" : richtig ? "Richtig! 🎉" : "Nicht ganz – merk dir:";
     document.getElementById("loesung").textContent = f.antwortKurz;
     document.getElementById("erklaerung").textContent = f.erklaerung;
-    document.getElementById("quelle").textContent = "Skript Seite " + f.seite + (f.vorlesung ? " · Erklärung aus der Vorlesung " + f.vorlesung : "");
+    document.getElementById("quelle").textContent = (f.seite ? "Skript Seite " + f.seite : "Nicht im Skript") + (f.vorlesung ? " · Erklärung aus der Vorlesung " + f.vorlesung : "");
     document.getElementById("weiter").style.display = selbst ? "none" : "";
     box.style.display = "block";
   }
