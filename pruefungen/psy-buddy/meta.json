@@ -1,0 +1,25 @@
+{
+  "id": "psy-buddy",
+  "titel": "Fragen von Buddys",
+  "kurz": "BUDDY",
+  "datum": "2026-11-25",
+  "aktiv": true,
+  "form": "Fragen aus dem Buddy-Bogen, Antworten 1:1 übernommen",
+  "quelle": "Aus dem Buddy-Bogen",
+  "kapitel": [
+    {
+      "nr": "1",
+      "titel": "Psychosoziale Aspekte"
+    }
+  ],
+  "gruppen": [
+    {
+      "nr": "1",
+      "titel": "Psychosoziale Aspekte",
+      "thema": "",
+      "praefix": [
+        "1"
+      ]
+    }
+  ]
+}

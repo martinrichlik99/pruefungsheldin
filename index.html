@@ -142,7 +142,8 @@
   .rueckmeldung.richtig .urteil { color: var(--mint-text); }
   .rueckmeldung.falsch .urteil { color: var(--rot); }
   .loesung { font-weight: 700; font-size: 17px; margin-bottom: 8px; white-space: pre-line; }
-  .erklaerung { color: #4a3b3d; font-size: 15.5px; max-width: 70ch; }
+  .erklaerung { color: #4a3b3d; font-size: 15.5px; max-width: 70ch; white-space: pre-line; }
+  .loesung-bilder img { display: block; max-width: 100%; height: auto; margin: 4px 0 12px; border-radius: 8px; background: #fff; }
   .quelle { font-size: 13px; color: var(--leise); margin-top: 10px; }
   .unten { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 20px; flex-wrap: wrap; }
   .melden { font-size: 14px; font-weight: 600; color: var(--leise); padding: 8px 4px; }
@@ -286,6 +287,7 @@
       <div class="rueckmeldung" id="rueckmeldung" aria-live="polite">
         <div class="urteil" id="urteil"></div>
         <div class="loesung" id="loesung"></div>
+        <div class="loesung-bilder" id="loesung-bilder"></div>
         <div class="erklaerung" id="erklaerung"></div>
         <div class="quelle" id="quelle"></div>
         <div class="unten">
@@ -332,10 +334,12 @@
   var ORDNER = {
     pkim: { titel: "Pathologie & klinisch innere Medizin", kurz: "PRÜFUNG", datum: "2026-11-30", inhalt: ["pathologie", "innere"] },
     innere: { titel: "Klinische Innere Medizin", kurz: "KIM", datum: "2026-11-30", inhalt: ["kim-buddy", "kim"] },
-    pathologie: { titel: "Pathologie", kurz: "PATHO", datum: "2026-11-30", inhalt: ["patho-alt", "patho", "patho-buddy"] }
+    pathologie: { titel: "Pathologie", kurz: "PATHO", datum: "2026-11-30", inhalt: ["patho-alt", "patho", "patho-buddy"] },
+    psycho: { titel: "Interaktion, Kommunikation und psychosoziale Aspekte in der Ergotherapie", kurz: "PRÜFUNG", datum: "2026-11-25", inhalt: ["dafert"] },
+    dafert: { titel: "Burkhard Dafert", kurz: "DAFERT", datum: "2026-11-25", inhalt: ["psy-eh", "psy-buddy"] }
   };
-  var START = ["pkim", "aphi1"];
-  var PRUEFUNGEN = ["kim", "kim-buddy", "patho", "patho-alt", "patho-buddy", "aphi1"];
+  var START = ["psycho", "pkim", "aphi1"];
+  var PRUEFUNGEN = ["kim", "kim-buddy", "patho", "patho-alt", "patho-buddy", "psy-eh", "psy-buddy", "aphi1"];
   var ELTERN = {};
   Object.keys(ORDNER).forEach(function (o) { ORDNER[o].inhalt.forEach(function (k) { ELTERN[k] = o; }); });
   var PRUEFUNG = "";
@@ -614,8 +618,11 @@
     box.className = "rueckmeldung" + (selbst ? "" : richtig ? " richtig" : " falsch");
     document.getElementById("urteil").textContent = selbst ? "Lösung" : richtig ? "Richtig! 🎉" : "Nicht ganz – merk dir:";
     document.getElementById("loesung").textContent = f.antwortKurz;
+    document.getElementById("loesung-bilder").innerHTML = (f.bilder || []).map(function (b) {
+      return '<img src="pruefungen/' + esc(PRUEFUNG + "/" + b.src) + '" alt="' + esc(b.alt) + '" loading="lazy">';
+    }).join("");
     document.getElementById("erklaerung").textContent = f.erklaerung;
-    document.getElementById("quelle").textContent = (f.seite ? "Skript Seite " + f.seite : "Nicht im Skript") + (f.vorlesung ? " · Erklärung aus der Vorlesung " + f.vorlesung : "");
+    document.getElementById("quelle").textContent = (f.seite ? "Skript Seite " + f.seite : meta.quelle || "Nicht im Skript") + (f.vorlesung ? " · Erklärung aus der Vorlesung " + f.vorlesung : "");
     document.getElementById("weiter").style.display = selbst ? "none" : "";
     box.style.display = "block";
   }

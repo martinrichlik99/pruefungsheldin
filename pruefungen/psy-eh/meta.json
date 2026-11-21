@@ -1,0 +1,25 @@
+{
+  "id": "psy-eh",
+  "titel": "Fragen Erwartungshorizont",
+  "kurz": "ERWARTUNG",
+  "datum": "2026-11-25",
+  "aktiv": true,
+  "form": "Fragen aus dem Erwartungshorizont, Antworten 1:1 übernommen",
+  "quelle": "Aus dem Erwartungshorizont",
+  "kapitel": [
+    {
+      "nr": "1",
+      "titel": "Psychosoziale Aspekte"
+    }
+  ],
+  "gruppen": [
+    {
+      "nr": "1",
+      "titel": "Psychosoziale Aspekte",
+      "thema": "",
+      "praefix": [
+        "1"
+      ]
+    }
+  ]
+}
